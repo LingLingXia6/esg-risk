@@ -1,56 +1,120 @@
-# 快速使用 Create Next App
+# ESG Risk 项目
 
-这是一个基于 `Next.js` 的项目模版，可以快速创建 React 项目。预览地址：https://create-next-app.crazyurus.com
+这是一个基于 Next.js 的现代化 React 应用，用于 ESG 风险评估和管理。
 
-主要功能：
+## 项目特点
 
-- 支持 TypeScript
-- 基于 `Next.js` 支持 SSR
-- 包管理器替换为 `pnpm`
-- 添加了 `husky` `lint-staged` 以 commit 时检查
-- 保存时会自动格式化
+- 基于 Next.js 的 SSR/CSR 混合渲染
+- TypeScript 强类型支持
+- Chakra UI 组件库
+- React Query 数据获取与缓存
+- 完整的测试支持
+- Docker 容器化部署
 
-## 准备工作
+## 快速开始
 
-> Node.js 版本需要 16+
+### 环境要求
 
-1. 需要全局安装 `pnpm`
+- Node.js 16+
+- pnpm 8+
 
-```sh
-$ npm install pnpm -g
+### 安装依赖
+
+```bash
+# 安装 pnpm (如果尚未安装)
+npm install pnpm -g
+
+# 安装项目依赖
+pnpm install
 ```
 
-2. 点击 GitHub 的 **Use this template**，基于此模版创建一个新的项目，并将你的项目 `clone` 到本地。或者运行：
+### 开发模式开发
 
-```sh
-$ npx create-next-app@latest nextjs-blog --use-npm --example "https://github.com/crazyurus/create-next-app"
+```
+pnpm run start
 ```
 
-3. 运行 `pnpm install` 安装依赖
-4. 运行 `pnpm run start` 启动项目。在 VSCode 中，也可以通过 **运行和调试** 功能通过界面启动，并在 VSCode 中断点调试
+### 构建生产版本
 
-## 可用脚本
+```bash
+pnpm run build
+```
 
-在这个项目中，你可以使用：
+## 项目架构
 
-### `pnpm run start`
+### 技术栈 类别 技术 说明 前端框架
 
-使用开发模式运行你的项目，可打开 [http://localhost:3000](http://localhost:3000) 在浏览器中查看。当文件修改时页面会自动更新
+Next.js (基于 React)
 
-### `pnpm run build`
+支持 SSR / ISR / CSR，适合构建高性能 Web 应用 语言
 
-使用生产模式构建你的项目，产物在 `dist` 目录下，构建时我们会对产物进行优化以拥有更好的性能，构建产物中的文件名均有 hash 值，并对内容进行了压缩。
+TypeScript
 
-构建完成后就可以部署了，可以参考 https://facebook.github.io/create-react-app/docs/deployment
+强类型、增强可维护性和开发效率 UI 框架
 
-## 目录结构
+Chakra UI
 
-项目文件均在 `src` 目录下，需要关注的是：
+支持可访问性（a11y），组件风格现代、开发体验佳 状态管理
 
-- 公共组件放在 `components` 下
-- 页面组件放在 `pages` 下
-- 路由遵循 `Next.js` 的约定式路由
+React Context
 
-## License
+管理全局状态（如用户信息、主题设置等） 数据获取
 
-[MIT](./LICENSE)
+React Query
+
+管理异步请求（含缓存、加载、错误状态） API 调用
+
+Axios
+
+封装 HTTP 请求，与 React Query 集成 测试
+
+Jest + React Testing Library
+
+单元测试和组件测试 样式方案
+
+Chakra UI + SCSS Module
+
+组件样式与全局样式分离
+
+```
+/src
+  /components  - 可复用的组件
+  /contexts    - React Context 上下文
+  /layouts     - 页面布局组件
+  /pages       - 页面组件和路由
+  /services    - API 服务和数据获取
+  /styles      - 全局样式
+```
+
+### 核心功能实现
+
+#### 应用入口
+
+\_app.tsx 作为应用入口，负责：
+
+#### - 初始化 React Query 客户端
+
+- 提供 Chakra UI 主题
+- 处理页面布局
+- 设置页面元数据
+  状态管理
+
+使用 React Context API 实现全局状态管理：
+
+- AppContext 提供主题切换等功能
+- 自定义 Hook useApp() 简化状态访问 API 服务
+  使用 Axios 封装 API 调用：
+- 统一的请求配置
+- 请求和响应拦截器
+- 错误处理 路由系统
+  遵循 Next.js 的约定式路由：
+- 文件系统路由
+- 动态路由支持
+- 布局系统
+
+## 开发规范
+
+- 使用 ESLint 和 Prettier 进行代码格式化
+- 使用 husky 和 lint-staged 在提交前检查代码
+- 遵循组件化开发原则
+- 编写单元测试确保代码质量

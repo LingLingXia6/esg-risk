@@ -2,61 +2,58 @@ import React, { useMemo } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import styles from './RiskScoreHistory.module.scss';
 
-// 定义数据类型
+// Define data types
 type CategoryKey = 'environmental' | 'social' | 'governance';
 type HistoryDataPoint = {
   date: string;
   overall: number;
 } & Record<CategoryKey, number>;
-
 interface RiskScoreHistoryProps {
   data: HistoryDataPoint[];
   interval: string;
 }
 
-// 格式化日期显示
-const formatDate = (dateStr: string) => {
+const CATEGORIES = {
+  OVERALL: 'overall',
+  ENVIRONMENTAL: 'environmental',
+  SOCIAL: 'social',
+  GOVERNANCE: 'governance'
+} as const;
+
+// 颜色映射
+const CATEGORY_COLORS: Record<string, string> = {
+  [CATEGORIES.OVERALL]: '#333333',
+  [CATEGORIES.ENVIRONMENTAL]: '#7a944b',
+  [CATEGORIES.SOCIAL]: '#c48a3a',
+  [CATEGORIES.GOVERNANCE]: '#5472b3'
+};
+
+// 类别名称映射
+const CATEGORY_NAMES: Record<string, string> = {
+  [CATEGORIES.OVERALL]: 'Overall',
+  [CATEGORIES.ENVIRONMENTAL]: 'Environmental',
+  [CATEGORIES.SOCIAL]: 'Social',
+  [CATEGORIES.GOVERNANCE]: 'Governance'
+};
+
+// 时间间隔标题映射
+const INTERVAL_TITLES: Record<string, string> = {
+  weekly: 'Weekly Risk Score Trend',
+  monthly: 'Monthly Risk Score Trend',
+  quarterly: 'Quarterly Risk Score Trend',
+  yearly: 'Yearly Risk Score Trend'
+};
+
+const formatDate = (dateStr: string): string => {
   const date = new Date(dateStr);
-  return new Intl.DateTimeFormat('zh-CN', {
+  return new Intl.DateTimeFormat('en-US', {
     month: 'short',
     day: 'numeric'
   }).format(date);
 };
 
-// 获取类别颜色
-const getCategoryColor = (category: string): string => {
-  switch (category) {
-    case 'overall':
-      return '#333333';
-    case 'environmental':
-      return '#7a944b';
-    case 'social':
-      return '#c48a3a';
-    case 'governance':
-      return '#5472b3';
-    default:
-      return '#999999';
-  }
-};
-
-// 获取类别中文名称
-const getCategoryName = (category: string): string => {
-  switch (category) {
-    case 'overall':
-      return '总体';
-    case 'environmental':
-      return '环境';
-    case 'social':
-      return '社会';
-    case 'governance':
-      return '治理';
-    default:
-      return category;
-  }
-};
-
 const RiskScoreHistory: React.FC<RiskScoreHistoryProps> = ({ data, interval }) => {
-  // 处理数据，确保日期格式正确
+  // Process data to ensure date format is correct
   const chartData = useMemo(() => {
     return data.map(item => ({
       ...item,
@@ -64,29 +61,25 @@ const RiskScoreHistory: React.FC<RiskScoreHistoryProps> = ({ data, interval }) =
     }));
   }, [data]);
 
-  // 获取图表标题
-  const getChartTitle = () => {
-    switch (interval) {
-      case 'weekly':
-        return '每周风险评分趋势';
-      case 'monthly':
-        return '每月风险评分趋势';
-      case 'quarterly':
-        return '季度风险评分趋势';
-      case 'yearly':
-        return '年度风险评分趋势';
-      default:
-        return '风险评分历史趋势';
-    }
-  };
-
+  // 如果没有数据，显示提示信息
   if (!data || data.length === 0) {
-    return <div className={styles['no-data']}>暂无历史数据</div>;
+    return <div className={styles['no-data']}>No historical data available</div>;
   }
 
+  // 创建图表线条配置
+  const createLineConfig = (category: string, isMain = false) => ({
+    type: 'monotone' as const,
+    dataKey: category,
+    name: category,
+    stroke: CATEGORY_COLORS[category] || '#999999',
+    strokeWidth: isMain ? 3 : 2,
+    dot: { r: isMain ? 4 : 3 },
+    activeDot: isMain ? { r: 6 } : undefined
+  });
+
   return (
-    <div className={styles['container']}>
-      <h2 className={styles['chart-title']}>{getChartTitle()}</h2>
+    <div className={styles.container}>
+      <h2 className={styles['chart-title']}>{INTERVAL_TITLES[interval] || 'Historical Risk Score Trend'}</h2>
 
       <div className={styles['chart-container']}>
         <ResponsiveContainer width="100%" height={400}>
@@ -101,63 +94,22 @@ const RiskScoreHistory: React.FC<RiskScoreHistoryProps> = ({ data, interval }) =
                 boxShadow: '0 2px 8px rgba(0,0,0,0.15)',
                 borderRadius: '4px'
               }}
-              formatter={(value: number, name: string) => [`${value}`, getCategoryName(name)]}
-              labelFormatter={label => `日期: ${label}`}
+              formatter={(value: number, name: string) => [`${value}`, CATEGORY_NAMES[name] || name]}
+              labelFormatter={label => `Date: ${label}`}
             />
-            <Legend formatter={value => getCategoryName(value)} wrapperStyle={{ paddingTop: 15 }} />
+            <Legend formatter={value => CATEGORY_NAMES[value] || value} wrapperStyle={{ paddingTop: 15 }} />
 
-            {/* 绘制总体风险评分线 */}
-            <Line
-              type="monotone"
-              dataKey="overall"
-              name="overall"
-              stroke={getCategoryColor('overall')}
-              strokeWidth={3}
-              dot={{ r: 4 }}
-              activeDot={{ r: 6 }}
-            />
-
-            {/* 绘制各类别风险评分线 */}
-            <Line
-              type="monotone"
-              dataKey="environmental"
-              name="environmental"
-              stroke={getCategoryColor('environmental')}
-              strokeWidth={2}
-              dot={{ r: 3 }}
-            />
-            <Line
-              type="monotone"
-              dataKey="social"
-              name="social"
-              stroke={getCategoryColor('social')}
-              strokeWidth={2}
-              dot={{ r: 3 }}
-            />
-            <Line
-              type="monotone"
-              dataKey="governance"
-              name="governance"
-              stroke={getCategoryColor('governance')}
-              strokeWidth={2}
-              dot={{ r: 3 }}
-            />
+            <Line {...createLineConfig(CATEGORIES.OVERALL, true)} />
+            <Line {...createLineConfig(CATEGORIES.ENVIRONMENTAL)} />
+            <Line {...createLineConfig(CATEGORIES.SOCIAL)} />
+            <Line {...createLineConfig(CATEGORIES.GOVERNANCE)} />
           </LineChart>
         </ResponsiveContainer>
       </div>
 
       <div className={styles['chart-footer']}>
-        <div className={styles['interval-info']}>
-          数据频率:{' '}
-          {interval === 'weekly'
-            ? '每周'
-            : interval === 'monthly'
-            ? '每月'
-            : interval === 'quarterly'
-            ? '季度'
-            : '年度'}
-        </div>
-        <div className={styles['data-points-info']}>数据点: {data.length}</div>
+        <div className={styles['interval-info']}>Data Frequency: {interval}</div>
+        <div className={styles['data-points-info']}>Data Points: {data.length}</div>
       </div>
     </div>
   );

@@ -3,6 +3,7 @@ import RiskScoreOverall from '@/components/RiskScore/RiskScoreOverall';
 import ESGCategoriesDetail from '../components/ESGCategories/ESGCategoriesDetail';
 import RiskScoreHistory from '@/components/RiskHistory/RiskScoreHistory';
 import { getCompanyRiskOverview, getRiskScoreHistory, getESGCategories } from '@/services/riskScoreService';
+import styles from './index.module.scss';
 
 // Define common types at the top level for reuse
 type CategoryKey = 'environmental' | 'social' | 'governance';
@@ -76,28 +77,35 @@ export default function Home() {
 
   // Loading state
   if (loading) {
-    return (
-      <div className="loading-container" style={{ padding: 40, textAlign: 'center' }}>
-        加载中...
-      </div>
-    );
+    return <div className={styles['loading-container']}>加载中...</div>;
   }
 
   // Error state
   if (error) {
-    return (
-      <div className="error-container" style={{ padding: 40, color: 'red', textAlign: 'center' }}>
-        {error}
-      </div>
-    );
+    return <div className={styles['error-container']}>{error}</div>;
   }
 
   // Render components
   return (
-    <div className="home-container">
-      <RiskScoreOverall data={riskData} />
-      {riskData && <ESGCategoriesDetail categories={riskData?.categories} esgCategoriesData={esgCategoriesData} />}
-      <RiskScoreHistory data={historyData.data} interval={historyData.interval} />
+    <div className={styles['home-container']}>
+      <div className={styles['content-wrapper']}>
+        <div className={styles['section']}>
+          <h2 className={styles['section-title']}>Risk Overall</h2>
+          <RiskScoreOverall data={riskData} />
+        </div>
+
+        {riskData && (
+          <div className={styles['section']}>
+            <h2 className={styles['section-title']}>ESG Category Breakdown</h2>
+            <ESGCategoriesDetail categories={riskData?.categories} esgCategoriesData={esgCategoriesData} />
+          </div>
+        )}
+
+        <div className={styles['section']}>
+          <h2 className={styles['section-title']}>ESG History</h2>
+          <RiskScoreHistory data={historyData.data} interval={historyData.interval} />
+        </div>
+      </div>
     </div>
   );
 }

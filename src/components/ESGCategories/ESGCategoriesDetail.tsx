@@ -122,7 +122,6 @@ const ESGCategoriesDetail: React.FC<ESGCategoriesDetailProps> = ({ categories, e
 
   return (
     <div className={styles['container']}>
-      <h2 className={styles['section-title']}>ESG 类别细分</h2>
       <div className={styles['categories-grid']}>
         {Object.entries(categories).map(([key, data]) => {
           const categoryKey = key as CategoryKey;

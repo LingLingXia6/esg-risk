@@ -3,7 +3,9 @@ import RiskScoreOverall from '@/components/RiskScore/RiskScoreOverall';
 import ESGCategoriesDetail from '../components/ESGCategories/ESGCategoriesDetail';
 import RiskScoreHistory from '@/components/RiskHistory/RiskScoreHistory';
 import { getCompanyRiskOverview, getRiskScoreHistory, getESGCategories } from '@/services/riskScoreService';
+import { ESGCategory as ESGCategoryType } from '@/types/incidents';
 import styles from './index.module.scss';
+import Incidents from '@/components/Incidents/Incidents';
 
 // Define common types at the top level for reuse
 type CategoryKey = 'environmental' | 'social' | 'governance';
@@ -24,24 +26,13 @@ type HistoryDataPoint = {
   overall: number;
 } & Record<CategoryKey, number>;
 
-// ESG类别数据类型
-type ESGCategory = {
-  id: string;
-  name: string;
-  description: string;
-  color: string;
-  subcategories: Array<{
-    id: string;
-    name: string;
-  }>;
-};
-
+// 使用从types/incidents导入的ESGCategory类型
 export default function Home() {
   // State management
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [riskData, setRiskData] = useState<Overview | null>(null);
-  const [esgCategoriesData, setEsgCategoriesData] = useState<ESGCategory[]>([]);
+  const [esgCategoriesData, setEsgCategoriesData] = useState<ESGCategoryType[]>([]);
   const [historyData, setHistoryData] = useState<{
     data: HistoryDataPoint[];
     interval: string;
@@ -104,6 +95,10 @@ export default function Home() {
         <div className={styles['section']}>
           <h2 className={styles['section-title']}>ESG History</h2>
           <RiskScoreHistory data={historyData.data} interval={historyData.interval} />
+        </div>
+        <div className={styles['section']}>
+          <h2 className={styles['section-title']}>Incidents</h2>
+          <Incidents />
         </div>
       </div>
     </div>

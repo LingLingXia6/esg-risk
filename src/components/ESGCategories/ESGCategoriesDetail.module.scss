@@ -1,0 +1,168 @@
+// 主容器
+.container {
+  margin-top: 40px;
+  padding: 24px;
+  background: #f7f4ef;
+  border-radius: 16px;
+}
+
+// 标题
+.section-title {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 24px;
+  color: #333;
+  text-align: center;
+}
+
+// 类别网格
+.categories-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+
+  @media (max-width: 900px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: 600px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+// 类别卡片
+.category-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 4px 12px rgb(0 0 0 / 5%);
+  transition: transform 0.2s, box-shadow 0.2s;
+  border-top: 4px solid;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 16px rgb(0 0 0 / 8%);
+  }
+}
+
+// 类别特定背景色
+.category-environmental {
+  border-top: 4px solid #7a944b;
+  background: linear-gradient(to bottom, rgb(122 148 75 / 5%), #fff 15%);
+}
+
+.category-social {
+  border-top: 4px solid #c48a3a;
+  background: linear-gradient(to bottom, rgb(196 138 58 / 5%), #fff 15%);
+}
+
+.category-governance {
+  border-top: 4px solid #5472b3;
+  background: linear-gradient(to bottom, rgb(84 114 179 / 5%), #fff 15%);
+}
+
+// 类别标题区域
+.category-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+// 类别标题
+.category-title {
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0;
+  color: #333;
+}
+
+// 类别分数容器
+.category-score-container {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+// 类别分数
+.category-score {
+  font-size: 48px;
+  font-weight: 800;
+  color: #222;
+  line-height: 1.2;
+}
+
+// 分数标签
+.category-label {
+  font-size: 14px;
+  color: #666;
+  margin-top: 4px;
+}
+
+// 类别详情
+.category-details {
+  margin-top: 16px;
+  border-top: 1px solid rgb(0 0 0 / 8%);
+  padding-top: 16px;
+}
+
+// 详情列表
+.detail-list {
+  margin: 0;
+  padding-left: 20px;
+
+  li {
+    margin-bottom: 8px;
+    color: #555;
+    font-size: 14px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+// 趋势样式
+.category-trend {
+  display: inline-flex;
+  align-items: center;
+  font-weight: 600;
+  font-size: 14px;
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+.trend-increasing {
+  color: #ff2b2b;
+  background: rgb(255 43 43 / 10%);
+}
+
+.trend-decreasing {
+  color: #1976d2;
+  background: rgb(25 118 210 / 10%);
+}
+
+.trend-stable {
+  color: #757575;
+  background: rgb(117 117 117 / 8%);
+}
+
+// 加载状态
+.loading-state {
+  padding: 40px;
+  text-align: center;
+  color: #666;
+  font-size: 16px;
+  background: #f9f9f9;
+  border-radius: 12px;
+  margin: 20px 0;
+}
+
+// 类别描述
+.category-description {
+  margin: 0 0 16px;
+  font-size: 14px;
+  color: #666;
+  line-height: 1.5;
+  padding-top: 8px;
+  font-style: italic;
+}

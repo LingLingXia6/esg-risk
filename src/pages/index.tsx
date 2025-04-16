@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import RiskScoreOverall from '@/components/RiskScore/RiskScoreOverall';
-import { getCompanyRiskOverview } from '@/services/riskScoreService';
+import ESGCategoriesDetail from '../components/ESGCategories/ESGCategoriesDetail';
+import RiskScoreHistory from '@/components/RiskHistory/RiskScoreHistory';
+import { getCompanyRiskOverview, getRiskScoreHistory, getESGCategories } from '@/services/riskScoreService';
 
+// Define common types at the top level for reuse
 type CategoryKey = 'environmental' | 'social' | 'governance';
 type Category = {
   score: number;
@@ -15,19 +18,54 @@ type Overview = {
   categories: Record<CategoryKey, Category>;
 };
 
-export default function Home() {
-  const [loading, setLoading] = useState(true);
-  // 使用 Overview 类型
-  const [riskData, setRiskData] = useState<Overview | null>(null);
+type HistoryDataPoint = {
+  date: string;
+  overall: number;
+} & Record<CategoryKey, number>;
 
+// ESG类别数据类型
+type ESGCategory = {
+  id: string;
+  name: string;
+  description: string;
+  color: string;
+  subcategories: Array<{
+    id: string;
+    name: string;
+  }>;
+};
+
+export default function Home() {
+  // State management
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [riskData, setRiskData] = useState<Overview | null>(null);
+  const [esgCategoriesData, setEsgCategoriesData] = useState<ESGCategory[]>([]);
+  const [historyData, setHistoryData] = useState<{
+    data: HistoryDataPoint[];
+    interval: string;
+  }>({ data: [], interval: 'monthly' });
+
+  // Fetch data on component mount
   useEffect(() => {
     async function fetchData() {
       setLoading(true);
+      setError(null);
+
       try {
-        const data = await getCompanyRiskOverview();
-        setRiskData(data as Overview);
+        // Fetch data in parallel for better performance
+        const [overviewData, historyResult, categoriesData] = await Promise.all([
+          getCompanyRiskOverview(),
+          getRiskScoreHistory(),
+          getESGCategories()
+        ]);
+
+        setRiskData(overviewData as Overview);
+        setHistoryData(historyResult);
+        setEsgCategoriesData(categoriesData.categories);
       } catch (error) {
-        console.error('获取风险数据失败:', error);
+        console.error('获取数据失败:', error);
+        setError('无法加载数据，请稍后重试');
       } finally {
         setLoading(false);
       }
@@ -36,5 +74,30 @@ export default function Home() {
     fetchData();
   }, []);
 
-  return <div>{loading ? <div style={{ padding: 40 }}>加载中...</div> : <RiskScoreOverall data={riskData} />}</div>;
+  // Loading state
+  if (loading) {
+    return (
+      <div className="loading-container" style={{ padding: 40, textAlign: 'center' }}>
+        加载中...
+      </div>
+    );
+  }
+
+  // Error state
+  if (error) {
+    return (
+      <div className="error-container" style={{ padding: 40, color: 'red', textAlign: 'center' }}>
+        {error}
+      </div>
+    );
+  }
+
+  // Render components
+  return (
+    <div className="home-container">
+      <RiskScoreOverall data={riskData} />
+      {riskData && <ESGCategoriesDetail categories={riskData?.categories} esgCategoriesData={esgCategoriesData} />}
+      <RiskScoreHistory data={historyData.data} interval={historyData.interval} />
+    </div>
+  );
 }

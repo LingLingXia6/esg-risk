@@ -1,3 +1,4 @@
+// 主容器样式
 .container {
   background: #f7f4ef;
   min-height: 400px;
@@ -23,6 +24,7 @@
   }
 }
 
+// 总览卡片样式
 .overview-card {
   background: #fff;
   border-radius: 24px;
@@ -47,6 +49,7 @@
   }
 }
 
+// 标题样式
 .title {
   font-size: 26px;
   font-weight: 700;
@@ -59,6 +62,7 @@
   }
 }
 
+// 分数容器
 .score-container {
   display: flex;
   align-items: center;
@@ -69,12 +73,14 @@
   }
 }
 
+// 趋势容器
 .trend-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 
+// 分数样式
 .score {
   font-size: 80px;
   font-weight: 800;
@@ -89,6 +95,7 @@
   }
 }
 
+// 趋势基础样式
 .trend {
   font-weight: 700;
   font-size: 26px;
@@ -135,7 +142,7 @@
   background: rgb(117 117 117 / 10%);
 }
 
-// 高亮不同趋势
+// 类别趋势样式
 .category-trend-increasing {
   color: #ff2b2b;
   background: rgb(255 43 43 / 15%);
@@ -155,6 +162,7 @@
   color: #1976d2;
 }
 
+// 方向样式
 .direction {
   font-size: 18px;
   font-weight: 500;
@@ -167,6 +175,7 @@
   }
 }
 
+// 最后更新时间
 .last-updated {
   color: #888;
   font-size: 13px;
@@ -176,6 +185,7 @@
   }
 }
 
+// 类别标题
 .category-title {
   font-size: 18px;
   font-weight: 700;
@@ -188,6 +198,7 @@
   }
 }
 
+// 类别标题颜色
 .category-title-environmental {
   color: #7a944b;
 }
@@ -200,6 +211,7 @@
   color: #5472b3;
 }
 
+// 类别分数
 .category-score {
   font-size: 36px;
   font-weight: 700;
@@ -212,16 +224,23 @@
   }
 }
 
+// 类别趋势
 .category-trend {
   font-weight: 700;
   font-size: 15px;
   color: #757575;
+  display: inline-flex;
+  align-items: center;
+  border-radius: 4px;
+  padding: 2px 8px;
 
   @media (max-width: 600px) {
     font-size: 11px;
+    padding: 1px 6px;
   }
 }
 
+// 类别背景色
 .category-environmental {
   background: #e6edc9;
 }
@@ -234,6 +253,7 @@
   background: #eaf0f7;
 }
 
+// 类别容器
 .categories {
   display: flex;
   flex-direction: row;
@@ -249,6 +269,7 @@
   }
 }
 
+// 类别卡片
 .category-card {
   border-radius: 20px;
   padding: 32px;
@@ -269,4 +290,13 @@
   }
 }
 
-// 移除后面重复的 .category-trend 定义
+// 加载状态
+.loading-state {
+  padding: 40px;
+  text-align: center;
+  color: #666;
+  font-size: 16px;
+  background: #f9f9f9;
+  border-radius: 12px;
+  margin: 20px 0;
+}

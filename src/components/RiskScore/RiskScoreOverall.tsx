@@ -1,5 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react';
-import { getCompanyRiskOverview } from '@/services/riskScoreService';
+import React, { useMemo } from 'react';
 import styles from './RiskScoreOverall.module.scss';
 
 type CategoryKey = 'environmental' | 'social' | 'governance';
@@ -15,10 +14,14 @@ type Overview = {
   categories: Record<CategoryKey, Category>;
 };
 
+interface RiskScoreOverallProps {
+  data: Overview | null;
+}
+// 使用 useMemo 优化趋势信息计算
 const getTrendInfo = (trend: string) => {
   if (trend === 'increasing') return { className: styles['trend-increasing'], icon: '▲' };
   if (trend === 'decreasing') return { className: styles['trend-decreasing'], icon: '▼' };
-  return { className: styles['trend-stable'], icon: '—' }; // 使用破折号代替空字符
+  return { className: styles['trend-stable'], icon: '—' };
 };
 
 const categoryBgClassMap: Record<CategoryKey, string> = {
@@ -30,29 +33,44 @@ const getCategoryBgClass = (category: string) => categoryBgClassMap[category as 
 
 const capitalize = (str: string) => str.replace(/(^|\s)\S/g, l => l.toUpperCase());
 
-const RiskScoreOverall: React.FC = () => {
-  const [loading, setLoading] = useState(true);
-  const [overview, setOverview] = useState<Overview | null>(null);
+// 提取卡片组件
+const CategoryCard: React.FC<{ category: string; data: Category }> = ({ category, data }) => {
+  const catTrend = getTrendInfo(data.trend);
+  const trendClassName = `category-trend-${data.trend}`;
+  const titleClass = `${styles['category-title']} ${styles[`category-title-${category}`] || ''}`;
 
-  const fetchData = useCallback(async () => {
-    setLoading(true);
+  return (
+    <div className={`${styles['category-card']} ${getCategoryBgClass(category)}`}>
+      <div className={titleClass}>{capitalize(category)}</div>
+      <div className={styles['category-score']}>{data.score}</div>
+      <div className={`${styles['category-trend']} ${styles[trendClassName]}`}>
+        {catTrend.icon} {Math.abs(data.changePercentage).toFixed(1)}%
+      </div>
+    </div>
+  );
+};
+
+const RiskScoreOverall: React.FC<RiskScoreOverallProps> = ({ data }) => {
+  // Move hooks before any conditional returns
+  const trendInfo = useMemo(() => {
+    if (!data?.trend?.direction) return getTrendInfo('');
+    return getTrendInfo(data.trend.direction);
+  }, [data?.trend?.direction]);
+
+  const formattedDate = useMemo(() => {
+    if (!data?.lastUpdated) return '';
     try {
-      const data = await getCompanyRiskOverview();
-      setOverview(data);
-    } finally {
-      setLoading(false);
+      return data.lastUpdated.replace('T', ' ').slice(0, 16);
+    } catch (error) {
+      console.error('Date formatting error:', error);
+      return data.lastUpdated || '';
     }
-  }, []);
+  }, [data?.lastUpdated]);
 
-  useEffect(() => {
-    fetchData();
-  }, [fetchData]);
+  // Now we can safely have conditional returns
+  if (!data) return <div className={styles['loading-state']}>暂无数据</div>;
 
-  if (loading) return <div style={{ padding: 40 }}>加载中...</div>;
-  if (!overview) return <div style={{ padding: 40 }}>暂无数据</div>;
-
-  const { overallRiskScore, trend, lastUpdated, categories } = overview;
-  const trendInfo = getTrendInfo(trend?.direction ?? '');
+  const { overallRiskScore, trend, categories } = data;
 
   return (
     <div className={styles['container']}>
@@ -68,31 +86,17 @@ const RiskScoreOverall: React.FC = () => {
             <div className={styles['direction']}>{capitalize(trend?.direction ?? '')}</div>
           </div>
         </div>
-        <div className={styles['last-updated']}>Last updated: {lastUpdated.replace('T', ' ').slice(0, 16)}</div>
+        <div className={styles['last-updated']}>Last updated: {formattedDate}</div>
       </div>
 
       {/* 分类卡片 */}
       <div className={styles['categories']}>
-        {Object.entries(categories).map(([key, cat]) => {
-          const catTrend = getTrendInfo(cat.trend);
-          // 使用 category-trend-increasing 等类名
-          const trendClassName = `category-trend-${cat.trend}`;
-
-          const titleClass = `${styles['category-title']} ${styles[`category-title-${key}`] || ''}`;
-
-          return (
-            <div key={key} className={`${styles['category-card']} ${getCategoryBgClass(key)}`}>
-              <div className={titleClass}>{capitalize(key)}</div>
-              <div className={styles['category-score']}>{cat.score}</div>
-              <div className={`${styles['category-trend']} ${styles[trendClassName]}`}>
-                {catTrend.icon} {Math.abs(cat.changePercentage).toFixed(1)}%
-              </div>
-            </div>
-          );
-        })}
+        {Object.entries(categories).map(([key, cat]) => (
+          <CategoryCard key={key} category={key} data={cat} />
+        ))}
       </div>
     </div>
   );
 };
 
-export default RiskScoreOverall;
+export default React.memo(RiskScoreOverall);

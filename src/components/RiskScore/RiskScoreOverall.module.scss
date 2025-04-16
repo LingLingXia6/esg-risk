@@ -1,0 +1,272 @@
+.container {
+  background: #f7f4ef;
+  min-height: 400px;
+  padding: 48px;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 32px;
+
+  @media (max-width: 900px) {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 24px;
+    gap: 16px;
+  }
+
+  @media (max-width: 600px) {
+    padding: 8px;
+    border-radius: 8px;
+    gap: 8px;
+  }
+}
+
+.overview-card {
+  background: #fff;
+  border-radius: 24px;
+  padding: 32px 40px;
+  margin-bottom: 0;
+  box-shadow: 0 4px 24px rgb(0 0 0 / 8%);
+  min-width: 320px;
+  max-width: 100%;
+  flex: 0 0 400px;
+  margin-right: 0;
+
+  @media (max-width: 900px) {
+    min-width: unset;
+    width: 100%;
+    margin-bottom: 16px;
+    padding: 24px 16px;
+  }
+
+  @media (max-width: 600px) {
+    border-radius: 12px;
+    padding: 12px 8px;
+  }
+}
+
+.title {
+  font-size: 26px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: #222;
+
+  @media (max-width: 600px) {
+    font-size: 18px;
+    margin-bottom: 6px;
+  }
+}
+
+.score-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+
+  @media (max-width: 600px) {
+    margin-bottom: 6px;
+  }
+}
+
+.trend-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.score {
+  font-size: 80px;
+  font-weight: 800;
+  margin-right: 18px;
+  color: #222;
+  line-height: 1;
+  display: inline-block;
+
+  @media (max-width: 600px) {
+    font-size: 48px;
+    margin-right: 10px;
+  }
+}
+
+.trend {
+  font-weight: 700;
+  font-size: 26px;
+  display: flex;
+  align-items: center;
+
+  @media (max-width: 600px) {
+    font-size: 16px;
+  }
+}
+
+// 统一趋势样式
+.trend-increasing,
+.trend-decreasing,
+.trend-stable {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  border-radius: 6px;
+  padding: 4px 12px;
+  margin-bottom: 6px;
+
+  @media (max-width: 600px) {
+    padding: 3px 8px;
+    margin-bottom: 4px;
+  }
+}
+
+.trend-increasing {
+  color: #ff2b2b;
+  background: rgb(255 43 43 / 15%);
+  box-shadow: 0 2px 4px rgb(211 47 47 / 20%);
+}
+
+.trend-decreasing {
+  color: #1976d2;
+  background: rgb(25 118 210 / 15%);
+  box-shadow: 0 2px 4px rgb(25 118 210 / 20%);
+}
+
+.trend-stable {
+  color: #757575;
+  background: rgb(117 117 117 / 10%);
+}
+
+// 高亮不同趋势
+.category-trend-increasing {
+  color: #ff2b2b;
+  background: rgb(255 43 43 / 15%);
+}
+
+.category-trend-decreasing {
+  color: #1976d2;
+  background: rgb(25 118 210 / 10%);
+}
+
+.category-trend-stable {
+  color: #757575;
+  background: rgb(117 117 117 / 8%);
+}
+
+.category-decreasing {
+  color: #1976d2;
+}
+
+.direction {
+  font-size: 18px;
+  font-weight: 500;
+  margin-bottom: 8px;
+  color: #444;
+
+  @media (max-width: 600px) {
+    font-size: 14px;
+    margin-bottom: 4px;
+  }
+}
+
+.last-updated {
+  color: #888;
+  font-size: 13px;
+
+  @media (max-width: 600px) {
+    font-size: 11px;
+  }
+}
+
+.category-title {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 6px;
+  color: #333;
+
+  @media (max-width: 600px) {
+    font-size: 13px;
+    margin-bottom: 3px;
+  }
+}
+
+.category-title-environmental {
+  color: #7a944b;
+}
+
+.category-title-social {
+  color: #c48a3a;
+}
+
+.category-title-governance {
+  color: #5472b3;
+}
+
+.category-score {
+  font-size: 36px;
+  font-weight: 700;
+  margin-bottom: 2px;
+  color: #222;
+
+  @media (max-width: 600px) {
+    font-size: 18px;
+    margin-bottom: 1px;
+  }
+}
+
+.category-trend {
+  font-weight: 700;
+  font-size: 15px;
+  color: #757575;
+
+  @media (max-width: 600px) {
+    font-size: 11px;
+  }
+}
+
+.category-environmental {
+  background: #e6edc9;
+}
+
+.category-social {
+  background: #fff5e1;
+}
+
+.category-governance {
+  background: #eaf0f7;
+}
+
+.categories {
+  display: flex;
+  flex-direction: row;
+  gap: 24px;
+  align-items: center;
+  height: 100%;
+
+  @media (max-width: 900px) {
+    flex-direction: column;
+    gap: 16px;
+    align-items: stretch;
+    height: auto;
+  }
+}
+
+.category-card {
+  border-radius: 20px;
+  padding: 32px;
+  min-width: 150px;
+  width: 170px;
+  min-height: 120px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 4%);
+  justify-content: center;
+
+  @media (max-width: 900px) {
+    width: 100%;
+    min-width: unset;
+    padding: 20px 12px;
+    min-height: unset;
+  }
+}
+
+// 移除后面重复的 .category-trend 定义

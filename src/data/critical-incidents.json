@@ -5,7 +5,7 @@
     {
       "id": "incident-456",
       "title": "Emissions Reporting Violation",
-      "date": "2023-10-15T14:30:00Z",
+      "date": "2025-03-25T14:30:00Z",
       "category": "environmental",
       "severity": "high",
       "description": "Company fined €1.5M for misreporting carbon emissions",
@@ -16,7 +16,7 @@
     {
       "id": "incident-460",
       "title": "Data Privacy Breach",
-      "date": "2023-11-02T08:15:00Z",
+      "date": "2025-03-22T08:15:00Z",
       "category": "governance",
       "severity": "critical",
       "description": "Customer data breach affecting 100,000+ users",
@@ -27,7 +27,7 @@
     {
       "id": "incident-470",
       "title": "Conflict Minerals Audit",
-      "date": "2023-11-10T09:45:00Z",
+      "date": "2025-03-20T09:45:00Z",
       "category": "social",
       "severity": "medium",
       "description": "Audit finds insufficient diligence on conflict minerals in supply chain",

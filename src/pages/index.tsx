@@ -3,9 +3,10 @@ import RiskScoreOverall from '@/components/RiskScore/RiskScoreOverall';
 import ESGCategoriesDetail from '../components/ESGCategories/ESGCategoriesDetail';
 import RiskScoreHistory from '@/components/RiskHistory/RiskScoreHistory';
 import { getCompanyRiskOverview, getRiskScoreHistory, getESGCategories } from '@/services/riskScoreService';
-import { ESGCategory as ESGCategoryType } from '@/types/incidents';
+import { ESGCategory as ESGCategoryType } from '@/types/publicType';
 import styles from './index.module.scss';
 import Incidents from '@/components/Incidents/Incidents';
+import CriticalIncidents from '@/components/CriticalIncidents/CriticalIncidents';
 
 // Define common types at the top level for reuse
 type CategoryKey = 'environmental' | 'social' | 'governance';
@@ -100,6 +101,7 @@ export default function Home() {
           <h2 className={styles['section-title']}>Incidents</h2>
           <Incidents />
         </div>
+        <CriticalIncidents />
       </div>
     </div>
   );

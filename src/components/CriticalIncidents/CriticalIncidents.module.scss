@@ -1,0 +1,33 @@
+.critical-incidents-container {
+  margin-bottom: 32px;
+}
+
+.section-title {
+  font-weight: 700;
+  color: #333;
+}
+
+.incident-card {
+  transition: transform 0.2s, box-shadow 0.2s;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0 0 0 / 8%);
+  }
+}
+
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  color: #666;
+}
+
+.error-container {
+  padding: 16px;
+  border-radius: 8px;
+  background-color: #fff3f3;
+  border-left: 4px solid #f44336;
+  margin: 16px 0;
+}

@@ -2,29 +2,35 @@
 import companyRiskOverview from '@/data/company-risk-overview.json';
 import riskScoreHistory from '@/data/risk-score-history.json';
 import esgCategories from '@/data/esg-categories.json';
+import criticalIncident from '@/data/critical-incidents.json';
+import severityLevel from '@/data/severity-levels.json';
+import incidents from '@/data/incidents.json';
 
-export const getCompanyRiskOverview = () => {
-  return new Promise<typeof companyRiskOverview>(resolve => {
+export function getData<T>(data: T, delay: number = 300): Promise<T> {
+  return new Promise<T>(resolve => {
     setTimeout(() => {
-      resolve(companyRiskOverview);
-    }, 500); // 模拟网络延迟
+      resolve(data);
+    }, delay);
   });
-};
+}
+export function getIncidents() {
+  return getData(incidents, 500);
+}
+export function getRiskScoreHistory() {
+  return getData(riskScoreHistory, 350);
+}
+export function getCompanyRiskOverview() {
+  return getData(companyRiskOverview, 500);
+}
 
-// 获取风险评分历史数据
-export const getRiskScoreHistory = () => {
-  return new Promise<typeof riskScoreHistory>(resolve => {
-    setTimeout(() => {
-      resolve(riskScoreHistory);
-    }, 700); // 模拟网络延迟
-  });
-};
-
-// 获取ESG类别数据
 export const getESGCategories = () => {
-  return new Promise<typeof esgCategories>(resolve => {
-    setTimeout(() => {
-      resolve(esgCategories);
-    }, 300); // 模拟网络延迟
-  });
+  return getData(esgCategories, 500);
+};
+
+export const getSeverityLevel = () => {
+  return getData(severityLevel, 500);
+};
+
+export const getCriticalIncident = () => {
+  return getData(criticalIncident, 500);
 };

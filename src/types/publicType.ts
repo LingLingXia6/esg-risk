@@ -22,3 +22,17 @@ export type Source = {
   url: string;
   publishDate: string;
 };
+export type Category = {
+  score: number;
+  trend: string;
+  changePercentage: number;
+};
+export type HistoryDataPoint = {
+  date: string;
+  overall: number;
+} & Record<CategoryKey, number>;
+
+export interface RiskScoreHistoryProps {
+  data: HistoryDataPoint[];
+  interval: string;
+}

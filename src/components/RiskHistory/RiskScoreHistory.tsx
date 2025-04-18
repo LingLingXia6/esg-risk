@@ -1,17 +1,7 @@
 import React, { useMemo } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { RiskScoreHistoryProps } from '@/types/publicType';
 import styles from './RiskScoreHistory.module.scss';
-
-// Define data types
-type CategoryKey = 'environmental' | 'social' | 'governance';
-type HistoryDataPoint = {
-  date: string;
-  overall: number;
-} & Record<CategoryKey, number>;
-interface RiskScoreHistoryProps {
-  data: HistoryDataPoint[];
-  interval: string;
-}
 
 const CATEGORIES = {
   OVERALL: 'overall',

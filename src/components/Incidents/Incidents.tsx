@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import IncidentsTimeline from '@/components/Incidents/IncidentsTimeline';
 import { getIncidents, getSeverityLevels, getESGCategories } from '@/services/incidentService';
-import { Incident as ImportedIncident, ESGCategory } from '@/types/incidents';
+import { Incident as ImportedIncident } from '@/types/incidents';
+import { ESGCategory } from '@/types/publicType';
 import styles from './incidents.module.scss';
 
 // 从 IncidentsTimeline 组件中导入类型定义

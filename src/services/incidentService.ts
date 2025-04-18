@@ -1,4 +1,5 @@
-import { Incident, SeverityLevel, ESGCategory, CategoryKey } from '@/types/incidents';
+import { Incident, SeverityLevel } from '@/types/incidents';
+import { ESGCategory, CategoryKey } from '@/types/publicType';
 
 // 获取事件数据
 export async function getIncidents(): Promise<{ incidents: Incident[] }> {

@@ -2,17 +2,26 @@
 .container {
   margin-top: 40px;
   padding: 24px;
-  background: #f7f4ef;
+  background: #fff;
   border-radius: 16px;
+  width: 100%;
 }
 
 // 标题
 .section-title {
   font-size: 24px;
-  font-weight: 700;
+  font-weight: 600;
   margin-bottom: 24px;
   color: #333;
-  text-align: center;
+}
+
+// 标题下方的短线
+.title-underline {
+  height: 3px;
+  width: 80px;
+  background-color: #e0e0e0;
+  margin-bottom: 32px;
+  border-radius: 3px;
 }
 
 // 类别网格
@@ -37,28 +46,40 @@
   padding: 24px;
   box-shadow: 0 4px 12px rgb(0 0 0 / 5%);
   transition: transform 0.2s, box-shadow 0.2s;
-  border-top: 4px solid;
+  position: relative;
+  overflow: hidden;
 
   &:hover {
-    transform: translateY(-4px);
+    transform: translateY(-2px);
     box-shadow: 0 8px 16px rgb(0 0 0 / 8%);
   }
 }
 
-// 类别特定背景色
-.category-environmental {
-  border-top: 4px solid #7a944b;
-  background: linear-gradient(to bottom, rgb(122 148 75 / 5%), #fff 15%);
+// 顶部彩色条
+.color-bar {
+  height: 6px;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
-.category-social {
-  border-top: 4px solid #c48a3a;
-  background: linear-gradient(to bottom, rgb(196 138 58 / 5%), #fff 15%);
+// 类别特定颜色
+.environmental-color {
+  background-color: #34c759;
 }
 
-.category-governance {
-  border-top: 4px solid #5472b3;
-  background: linear-gradient(to bottom, rgb(84 114 179 / 5%), #fff 15%);
+.social-color {
+  background-color: #007aff;
+}
+
+.governance-color {
+  background-color: #af52de;
+}
+
+// 卡片内容容器
+.card-content {
+  padding: 24px;
 }
 
 // 类别标题区域
@@ -72,52 +93,19 @@
 // 类别标题
 .category-title {
   font-size: 20px;
-  font-weight: 700;
+  font-weight: 600;
   margin: 0;
-  color: #333;
-}
 
-// 类别分数容器
-.category-score-container {
-  text-align: center;
-  margin-bottom: 20px;
-}
+  &.environmental {
+    color: #34c759;
+  }
 
-// 类别分数
-.category-score {
-  font-size: 48px;
-  font-weight: 800;
-  color: #222;
-  line-height: 1.2;
-}
+  &.social {
+    color: #007aff;
+  }
 
-// 分数标签
-.category-label {
-  font-size: 14px;
-  color: #666;
-  margin-top: 4px;
-}
-
-// 类别详情
-.category-details {
-  margin-top: 16px;
-  border-top: 1px solid rgb(0 0 0 / 8%);
-  padding-top: 16px;
-}
-
-// 详情列表
-.detail-list {
-  margin: 0;
-  padding-left: 20px;
-
-  li {
-    margin-bottom: 8px;
-    color: #555;
-    font-size: 14px;
-
-    &:last-child {
-      margin-bottom: 0;
-    }
+  &.governance {
+    color: #af52de;
   }
 }
 
@@ -125,25 +113,111 @@
 .category-trend {
   display: inline-flex;
   align-items: center;
-  font-weight: 600;
+  font-weight: 500;
   font-size: 14px;
-  padding: 4px 8px;
-  border-radius: 4px;
+  padding: 4px 12px;
+  border-radius: 20px;
 }
 
 .trend-increasing {
-  color: #ff2b2b;
-  background: rgb(255 43 43 / 10%);
+  color: #ff3b30;
+  background: rgb(255 59 48 / 10%);
 }
 
 .trend-decreasing {
-  color: #1976d2;
-  background: rgb(25 118 210 / 10%);
+  color: #34c759;
+  background: rgb(52 199 89 / 10%);
 }
 
 .trend-stable {
-  color: #757575;
-  background: rgb(117 117 117 / 8%);
+  color: #8e8e93;
+  background: rgb(142 142 147 / 10%);
+}
+
+// 类别描述
+.category-description {
+  margin: 0 0 20px;
+  font-size: 14px;
+  color: #666;
+  line-height: 1.6;
+}
+
+// 分数显示容器
+.score-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 24px 0;
+}
+
+// 分数值
+.score-value {
+  font-size: 48px;
+  font-weight: 300;
+  color: #333;
+  letter-spacing: -1px;
+}
+
+// 分数标签
+.score-label {
+  font-size: 12px;
+  font-weight: 500;
+  color: #8e8e93;
+  background-color: #f2f2f7;
+  padding: 4px 12px;
+  border-radius: 20px;
+  margin-top: 8px;
+}
+
+// 子类别容器
+.subcategories-container {
+  margin-top: 20px;
+}
+
+// 子类别标题
+.subcategories-title {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.subcategories-title-text {
+  font-size: 15px;
+  font-weight: 500;
+  color: #666;
+  margin-right: 12px;
+}
+
+.subcategories-divider {
+  flex-grow: 1;
+  height: 1px;
+  background-color: rgb(0 0 0 / 8%);
+}
+
+// 子类别列表
+.subcategories-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 10px;
+}
+
+// 子类别项
+.subcategory-item {
+  font-size: 14px;
+  padding: 10px 14px;
+  background-color: #f5f5f7;
+  border-radius: 8px;
+  color: #333;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background-color: #eeeeef;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgb(0 0 0 / 5%);
+  }
 }
 
 // 加载状态
@@ -155,14 +229,4 @@
   background: #f9f9f9;
   border-radius: 12px;
   margin: 20px 0;
-}
-
-// 类别描述
-.category-description {
-  margin: 0 0 16px;
-  font-size: 14px;
-  color: #666;
-  line-height: 1.5;
-  padding-top: 8px;
-  font-style: italic;
 }

@@ -4,32 +4,12 @@ import ESGCategoriesDetail from '../components/ESGCategories/ESGCategoriesDetail
 import RiskScoreHistory from '@/components/RiskHistory/RiskScoreHistory';
 import { getCompanyRiskOverview, getRiskScoreHistory, getESGCategories } from '@/services/riskScoreService';
 import { ESGCategory as ESGCategoryType } from '@/types/publicType';
+import { Overview, HistoryDataPoint } from '@/types/overview';
 import styles from './index.module.scss';
 import Incidents from '@/components/Incidents/Incidents';
 import CriticalIncidents from '@/components/CriticalIncidents/CriticalIncidents';
 
-// Define common types at the top level for reuse
-type CategoryKey = 'environmental' | 'social' | 'governance';
-type Category = {
-  score: number;
-  trend: string;
-  changePercentage: number;
-};
-type Overview = {
-  overallRiskScore: number;
-  trend: { direction: string; percentage: number };
-  lastUpdated: string;
-  categories: Record<CategoryKey, Category>;
-};
-
-type HistoryDataPoint = {
-  date: string;
-  overall: number;
-} & Record<CategoryKey, number>;
-
-// 使用从types/incidents导入的ESGCategory类型
 export default function Home() {
-  // State management
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [riskData, setRiskData] = useState<Overview | null>(null);
@@ -46,7 +26,6 @@ export default function Home() {
       setError(null);
 
       try {
-        // Fetch data in parallel for better performance
         const [overviewData, historyResult, categoriesData] = await Promise.all([
           getCompanyRiskOverview(),
           getRiskScoreHistory(),

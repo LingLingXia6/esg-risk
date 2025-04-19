@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import IncidentsTimeline from '@/components/Incidents/IncidentsTimeline';
-import { getIncidents, getSeverityLevels, getESGCategories } from '@/services/incidentService';
+import { getIncidents, getSeverityLevel as getSeverityLevels, getESGCategories } from '@/services/riskScoreService';
 import { CategoryKey, SeverityLevel } from '@/types/publicType';
 import { Incident as ImportedIncident, Incident } from '@/types/incidents';
 import { ESGCategory } from '@/types/publicType';

@@ -77,7 +77,20 @@ const IncidentsTimeline: React.FC<IncidentsTimelineProps> = ({ incidents, severi
 
   // 按日期排序
   const sortedIncidents = useMemo(() => {
-    return [...filteredIncidents].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+    return [...filteredIncidents].sort((a, b) => {
+      // 确保日期格式正确并进行比较
+      const dateA = new Date(a.date).getTime();
+      const dateB = new Date(b.date).getTime();
+
+      // 检查日期是否有效
+      if (isNaN(dateA) || isNaN(dateB)) {
+        console.warn('无效的日期格式:', a.date, b.date);
+        return 0;
+      }
+
+      // 降序排列（最新的事件在前）
+      return dateB - dateA;
+    });
   }, [filteredIncidents]);
 
   // 处理事件点击

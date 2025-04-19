@@ -3,6 +3,12 @@ import { Source, CategoryKey } from './publicType';
 export type RiskScoreImpact = {
   overall: number;
 } & Record<CategoryKey, number>;
+export interface CategoryOrSeverity {
+  id: string;
+  name: string;
+  description: string;
+  color: string;
+}
 
 export type Incident = {
   id: string;

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Box, Heading, Flex, Grid, Button, useColorModeValue } from '@chakra-ui/react';
 import { DateRangePicker } from '../common/DateRangePicker/DateRangePicker';
+import { CategoryOrSeverity } from '@/types/incidents';
 import { TagGroup } from '../common/TagGroup/TagGroup';
 
 // 类型定义
@@ -11,14 +12,6 @@ interface FiltersState {
   };
   categories: string[];
   severities: string[];
-}
-
-// ESG类别和严重程度的通用类型
-interface CategoryOrSeverity {
-  id: string;
-  name: string;
-  description: string;
-  color: string;
 }
 
 interface IncidentFiltersProps {

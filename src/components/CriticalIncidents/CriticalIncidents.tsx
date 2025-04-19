@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Box } from '@chakra-ui/react';
+
 import { getCriticalIncident, getSeverityLevel, getIncidents } from '@/services/riskScoreService';
 import { Incident as IncidentType } from '@/types/incidents';
 import { combinedIncident as CriticalIncident } from '@/types/criticalIncidents';

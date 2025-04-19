@@ -1,34 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import IncidentsTimeline from '@/components/Incidents/IncidentsTimeline';
 import { getIncidents, getSeverityLevels, getESGCategories } from '@/services/incidentService';
-import { Incident as ImportedIncident } from '@/types/incidents';
+import { CategoryKey, SeverityLevel } from '@/types/publicType';
+import { Incident as ImportedIncident, Incident } from '@/types/incidents';
 import { ESGCategory } from '@/types/publicType';
 import styles from './incidents.module.scss';
-
-// 从 IncidentsTimeline 组件中导入类型定义
-type CategoryKey = 'environmental' | 'social' | 'governance';
-type SeverityLevel = 'critical' | 'high' | 'medium' | 'low';
-
-// 定义与 IncidentsTimeline 组件兼容的 Incident 类型
-type Incident = {
-  id: string;
-  title: string;
-  date: string;
-  category: CategoryKey; // 这里使用 CategoryKey 而不是 string
-  subcategory: string;
-  severity: SeverityLevel;
-  description: string;
-  detailedDescription: string;
-  location: string;
-  riskScoreImpact: {
-    overall: number;
-  } & Record<CategoryKey, number>;
-  sources: {
-    title: string;
-    url: string;
-    publishDate: string;
-  }[];
-};
 
 const IncidentsPage: React.FC = () => {
   const [incidents, setIncidents] = useState<Incident[]>([]);

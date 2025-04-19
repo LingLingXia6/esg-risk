@@ -1,37 +1,10 @@
 import React, { useState, useMemo } from 'react';
+import { Incident } from '@/types/incidents';
 import { Timeline } from '../common/Timeline/Timeline';
 import styles from './IncidentsTimeline.module.scss';
 import IncidentDetail from './IncidentDetail';
 import IncidentFilters from './IncidentFilters';
 import { Box, Heading, Text, Flex, Badge, Center, useColorModeValue } from '@chakra-ui/react';
-
-// 定义事件数据类型
-type CategoryKey = 'environmental' | 'social' | 'governance';
-type SeverityLevel = 'critical' | 'high' | 'medium' | 'low';
-
-type RiskScoreImpact = {
-  overall: number;
-} & Record<CategoryKey, number>;
-
-type Source = {
-  title: string;
-  url: string;
-  publishDate: string;
-};
-
-type Incident = {
-  id: string;
-  title: string;
-  date: string;
-  category: CategoryKey;
-  subcategory: string;
-  severity: SeverityLevel;
-  description: string;
-  detailedDescription: string;
-  location: string;
-  riskScoreImpact: RiskScoreImpact;
-  sources: Source[];
-};
 
 interface IncidentsTimelineProps {
   incidents: Incident[];

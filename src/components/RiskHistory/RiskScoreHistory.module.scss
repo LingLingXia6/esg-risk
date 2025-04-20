@@ -1,68 +1,67 @@
-// Fix the rgba notation
+@import '@/styles/variables.scss';
+@import '@/styles/mixins.scss';
+
 .container {
-  background: #fff;
-  border-radius: 16px;
-  padding: 24px;
-  margin-top: 32px;
-  box-shadow: 0 2px 10px rgb(0 0 0 / 6%);
+  background: $color-bg-primary;
+  border-radius: $border-radius-lg;
+  padding: $spacing-lg;
+  margin-top: $spacing-xl;
+  box-shadow: $shadow-sm;
 }
 
 .chart-title {
-  font-size: 22px;
-  font-weight: 700;
-  color: #333;
-  margin-bottom: 24px;
+  font-size: $font-size-xxl - 2;
+  font-weight: $font-weight-bold;
+  color: $color-text-primary;
+  margin-bottom: $spacing-lg;
   text-align: center;
 }
 
 .chart-container {
-  margin: 0 -10px;
+  margin: 0 (-$spacing-sm - 2);
 
-  @media (max-width: 768px) {
-    margin: 0 -20px;
+  @include responsive-md {
+    margin: 0 (-$spacing-lg - 4);
   }
 }
 
 .chart-footer {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 16px;
-  padding-top: 16px;
-  border-top: 1px solid #eee;
-  color: #666;
-  font-size: 14px;
+  @include flex-between;
+  margin-top: $spacing-md;
+  padding-top: $spacing-md;
+  border-top: 1px solid $color-border-light;
+  color: $color-text-tertiary;
+  font-size: $font-size-md;
 }
 
 .interval-info,
 .data-points-info {
-  display: flex;
-  align-items: center;
+  @include flex-center;
 }
 
 .no-data {
-  background: #f9f9f9;
-  border-radius: 12px;
-  padding: 40px;
+  background: $color-bg-tertiary;
+  border-radius: $border-radius-md;
+  padding: $spacing-xl;
   text-align: center;
-  color: #666;
-  font-size: 16px;
-  margin: 20px 0;
+  color: $color-text-tertiary;
+  font-size: $font-size-lg;
+  margin: $spacing-lg - 4 0;
 }
 
-// 响应式调整
-@media (max-width: 768px) {
+@include responsive-md {
   .container {
-    padding: 16px;
-    margin-top: 24px;
+    padding: $spacing-md;
+    margin-top: $spacing-lg;
   }
 
   .chart-title {
-    font-size: 18px;
-    margin-bottom: 16px;
+    font-size: $font-size-xl;
+    margin-bottom: $spacing-md;
   }
 
   .chart-footer {
     flex-direction: column;
-    gap: 8px;
+    gap: $spacing-sm;
   }
 }

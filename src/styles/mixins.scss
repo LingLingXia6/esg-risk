@@ -1,0 +1,142 @@
+@import './variables.scss';
+
+@mixin responsive-xs {
+  @media (max-width: $breakpoint-xs) {
+    @content;
+  }
+}
+
+@mixin responsive-sm {
+  @media (max-width: $breakpoint-sm) {
+    @content;
+  }
+}
+
+@mixin responsive-md {
+  @media (max-width: $breakpoint-md) {
+    @content;
+  }
+}
+
+@mixin responsive-lg {
+  @media (max-width: $breakpoint-lg) {
+    @content;
+  }
+}
+
+@mixin responsive-xl {
+  @media (max-width: $breakpoint-xl) {
+    @content;
+  }
+}
+
+@mixin card-base {
+  background: $color-bg-primary;
+  border-radius: $border-radius-lg;
+  padding: $spacing-lg;
+  box-shadow: $shadow-md;
+}
+
+@mixin card-hover {
+  transition: transform 0.2s, box-shadow 0.2s;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: $shadow-lg;
+  }
+}
+
+@mixin trend-base {
+  display: inline-flex;
+  align-items: center;
+  font-weight: $font-weight-medium;
+  padding: 4px 12px;
+  border-radius: $border-radius-xl;
+}
+
+@mixin trend-increasing {
+  color: $color-trend-increasing;
+  background: $color-trend-increasing-bg;
+}
+
+@mixin trend-decreasing {
+  color: $color-trend-decreasing;
+  background: $color-trend-decreasing-bg;
+}
+
+@mixin trend-stable {
+  color: $color-trend-stable;
+  background: $color-trend-stable-bg;
+}
+
+@mixin badge-base {
+  padding: 4px 12px;
+  border-radius: $border-radius-xl;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-medium;
+}
+
+@mixin badge-environmental {
+  background-color: $color-environmental-bg;
+  color: $color-environmental;
+}
+
+@mixin badge-social {
+  background-color: $color-social-bg;
+  color: $color-social;
+}
+
+@mixin badge-governance {
+  background-color: $color-governance-bg;
+  color: $color-governance;
+}
+
+@mixin badge-critical {
+  background-color: $color-severity-critical-bg;
+  color: $color-severity-critical;
+}
+
+@mixin badge-high {
+  background-color: $color-severity-high-bg;
+  color: $color-severity-high;
+}
+
+@mixin loading-state {
+  padding: $spacing-xl;
+  text-align: center;
+  color: $color-text-tertiary;
+  font-size: $font-size-md;
+  background: #f9f9f9;
+  border-radius: $border-radius-md;
+  margin: $spacing-md 0;
+}
+
+@mixin error-state {
+  background-color: $color-bg-error;
+  border-left: 4px solid $color-danger;
+  padding: $spacing-md;
+  margin: $spacing-md 0;
+  border-radius: $border-radius-xs;
+}
+
+@mixin flex-row {
+  display: flex;
+  flex-direction: row;
+}
+
+@mixin flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin flex-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

@@ -1,38 +1,36 @@
+@import '@/styles/variables.scss';
+@import '@/styles/mixins.scss';
+
 .container {
-  max-width: 1200px;
+  max-width: $breakpoint-xl;
   margin: 0 auto;
-  padding: 24px 16px;
+  padding: $spacing-lg $spacing-md;
 }
 
 .page-title {
-  font-size: 28px;
-  font-weight: 700;
-  color: #333;
-  margin-bottom: 12px;
+  font-size: $font-size-xxl + 4;
+  font-weight: $font-weight-bold;
+  color: $color-text-primary;
+  margin-bottom: $spacing-md - 4;
 }
 
 .page-description {
-  font-size: 16px;
-  color: #666;
-  margin-bottom: 32px;
-  max-width: 800px;
+  font-size: $font-size-lg;
+  color: $color-text-tertiary;
+  margin-bottom: $spacing-xl;
+  max-width: $breakpoint-md;
 }
 
 .loading {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 300px;
-  font-size: 18px;
-  color: #666;
+  @include flex-center;
+  height: $spacing-xxl * 6.25;
+  font-size: $font-size-xl;
+  color: $color-text-tertiary;
 }
 
 .error {
-  background-color: #fff3f3;
-  border-left: 4px solid #f44336;
-  padding: 16px;
-  margin: 32px 0;
-  color: #d32f2f;
-  font-size: 16px;
-  border-radius: 4px;
+  @include error-state;
+  margin: $spacing-xl 0;
+  color: $color-severity-critical;
+  font-size: $font-size-lg;
 }

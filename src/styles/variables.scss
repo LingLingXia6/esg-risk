@@ -1,0 +1,82 @@
+$color-primary: #007aff;
+$color-secondary: #3a6d96;
+$color-success: #34c759;
+$color-warning: #e89527;
+$color-danger: #ff3b30;
+$color-info: #5472b3;
+
+$color-text-primary: #1d1d1f;
+$color-text-secondary: #4a4a4a;
+$color-text-tertiary: #666;
+$color-text-quaternary: #86868b;
+$color-text-light: #888;
+
+$color-bg-primary: #fff;
+$color-bg-secondary: #f7f4ef;
+$color-bg-tertiary: #faf8f5;
+$color-bg-quaternary: #f2f2f7;
+$color-bg-error: #fff3f3;
+
+$color-border-light: #f0e8e0;
+$color-border-regular: rgb(0 0 0 / 6%);
+
+$color-environmental: #4a8c5b;
+$color-environmental-bg: rgb(126 188 137 / 15%);
+$color-social: #3a6d96;
+$color-social-bg: rgb(88 148 196 / 15%);
+$color-governance: #8a5a9e;
+$color-governance-bg: rgb(175 122 197 / 15%);
+
+$color-trend-increasing: #ff2b2b;
+$color-trend-increasing-bg: rgb(255 43 43 / 15%);
+$color-trend-decreasing: #1976d2;
+$color-trend-decreasing-bg: rgb(25 118 210 / 15%);
+$color-trend-stable: #757575;
+$color-trend-stable-bg: rgb(117 117 117 / 10%);
+
+$color-severity-critical: #c04a3b;
+$color-severity-critical-bg: rgb(217 88 76 / 15%);
+$color-severity-high: #d18324;
+$color-severity-high-bg: rgb(232 149 39 / 15%);
+
+$spacing-xs: 4px;
+$spacing-sm: 8px;
+$spacing-md: 16px;
+$spacing-lg: 24px;
+$spacing-xl: 32px;
+$spacing-xxl: 48px;
+
+$border-radius-xs: 4px;
+$border-radius-sm: 8px;
+$border-radius-md: 12px;
+$border-radius-lg: 16px;
+$border-radius-xl: 20px;
+$border-radius-xxl: 24px;
+
+$font-size-xs: 12px;
+$font-size-sm: 13px;
+$font-size-md: 14px;
+$font-size-lg: 16px;
+$font-size-xl: 18px;
+$font-size-xxl: 24px;
+$font-size-xxxl: 36px;
+$font-size-huge: 48px;
+$font-size-giant: 80px;
+
+$font-weight-light: 300;
+$font-weight-regular: 400;
+$font-weight-medium: 500;
+$font-weight-semibold: 600;
+$font-weight-bold: 700;
+$font-weight-extrabold: 800;
+
+$shadow-sm: 0 2px 4px rgb(0 0 0 / 5%);
+$shadow-md: 0 4px 12px rgb(0 0 0 / 5%);
+$shadow-lg: 0 8px 16px rgb(0 0 0 / 8%);
+$shadow-xl: 0 4px 24px rgb(0 0 0 / 8%);
+
+$breakpoint-xs: 480px;
+$breakpoint-sm: 576px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 900px;
+$breakpoint-xl: 1200px;

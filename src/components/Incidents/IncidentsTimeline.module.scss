@@ -1,41 +1,41 @@
+@import '@/styles/variables.scss';
+@import '@/styles/mixins.scss';
+
 .container {
-  background: #fff;
-  border-radius: 16px;
-  padding: 24px;
-  margin-top: 32px;
-  box-shadow: 0 2px 10px rgba(0 0 0 / 6%);
+  @include card-base;
+  margin-top: $spacing-xl;
 }
 
 .title {
-  font-size: 22px;
-  font-weight: 700;
-  color: #333;
-  margin-bottom: 24px;
+  font-size: $font-size-xxl;
+  font-weight: $font-weight-bold;
+  color: $color-text-primary;
+  margin-bottom: $spacing-lg;
   text-align: center;
 }
 
 .timeline-container {
-  margin-top: 24px;
+  margin-top: $spacing-lg;
 }
 
 .timeline {
   position: relative;
-  padding-left: 40px;
+  padding-left: $spacing-xl;
 
   &::before {
     content: '';
     position: absolute;
-    left: 20px;
+    left: $spacing-lg;
     top: 0;
     bottom: 0;
     width: 2px;
-    background-color: #e0e0e0;
+    background-color: $color-border-light;
   }
 }
 
 .timeline-item {
   position: relative;
-  margin-bottom: 32px;
+  margin-bottom: $spacing-xl;
   cursor: pointer;
   transition: transform 0.2s;
 
@@ -45,58 +45,58 @@
 }
 
 .timeline-content {
-  background-color: #f9f9f9;
-  border-radius: 8px;
-  padding: 16px;
-  box-shadow: 0 1px 4px rgba(0 0 0 / 10%);
+  background-color: $color-bg-tertiary;
+  border-radius: $border-radius-sm;
+  padding: $spacing-md;
+  box-shadow: $shadow-sm;
 
   &:hover {
-    background-color: #f5f5f5;
+    background-color: darken($color-bg-tertiary, 2%);
   }
 }
 
 .timeline-header {
-  display: flex;
+  @include flex-row;
   align-items: center;
   flex-wrap: wrap;
-  margin-bottom: 12px;
+  margin-bottom: $spacing-md - 4;
 }
 
 .timeline-title {
-  font-size: 18px;
-  font-weight: 600;
+  font-size: $font-size-xl;
+  font-weight: $font-weight-semibold;
   margin: 0;
-  margin-right: 12px;
-  color: #333;
+  margin-right: $spacing-md - 4;
+  color: $color-text-primary;
 }
 
 .timeline-category,
 .timeline-severity {
-  padding: 4px 8px;
-  border-radius: 4px;
-  font-size: 12px;
-  font-weight: 600;
-  color: white;
-  margin-right: 8px;
-  margin-top: 4px;
+  padding: $spacing-xs $spacing-sm;
+  border-radius: $border-radius-xs;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-semibold;
+  color: $color-bg-primary;
+  margin-right: $spacing-sm;
+  margin-top: $spacing-xs;
 }
 
 .timeline-description {
-  font-size: 14px;
-  color: #555;
-  margin: 0 0 8px;
+  font-size: $font-size-md;
+  color: $color-text-tertiary;
+  margin: 0 0 $spacing-sm;
 }
 
 .timeline-location {
-  font-size: 13px;
-  color: #777;
+  font-size: $font-size-sm;
+  color: $color-text-light;
   font-style: italic;
 }
 
 .no-data {
   text-align: center;
-  padding: 40px;
-  color: #666;
-  font-size: 16px;
+  padding: $spacing-xl;
+  color: $color-text-tertiary;
+  font-size: $font-size-lg;
   font-style: italic;
 }

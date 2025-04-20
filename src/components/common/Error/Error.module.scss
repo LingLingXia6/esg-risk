@@ -1,15 +1,12 @@
-.container {
-  background-color: #fff3f3;
-  border-left: 4px solid #f44336;
-  padding: 16px;
-  margin: 16px 0;
-  border-radius: 4px;
-  max-width: 100%;
-}
+@import '@/styles/variables.scss';
+@import '@/styles/mixins.scss';
 
-@media (max-width: 768px) {
-  .container {
-    padding: 12px;
-    margin: 12px 0;
+.container {
+  @include error-state;
+  max-width: 100%;
+
+  @include responsive-md {
+    padding: $spacing-md * 0.75;
+    margin: $spacing-md * 0.75 0;
   }
 }

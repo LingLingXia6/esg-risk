@@ -1,16 +1,17 @@
+@import '@/styles/variables.scss';
+@import '@/styles/mixins.scss';
+
 .container {
-  min-height: 200px;
+  min-height: $spacing-xxl * 4.17;
   width: 100%;
-  padding: 24px;
+  padding: $spacing-lg;
+
+  @include responsive-md {
+    min-height: $spacing-xxl * 3.125;
+    padding: $spacing-md;
+  }
 }
 
 .spinner {
-  margin-bottom: 8px;
-}
-
-@media (max-width: 768px) {
-  .container {
-    min-height: 150px;
-    padding: 16px;
-  }
+  margin-bottom: $spacing-sm;
 }

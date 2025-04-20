@@ -1,0 +1,16 @@
+.container {
+  min-height: 200px;
+  width: 100%;
+  padding: 24px;
+}
+
+.spinner {
+  margin-bottom: 8px;
+}
+
+@media (max-width: 768px) {
+  .container {
+    min-height: 150px;
+    padding: 16px;
+  }
+}

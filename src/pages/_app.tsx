@@ -1,11 +1,12 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment } from 'react';
 import Head from 'next/head';
 import Layout from '../layouts/Basic';
 import type { NextPage } from 'next';
-import type { AppProps } from 'next/app';
+import { AppProps } from 'next/app';
 import { ChakraProvider } from '@chakra-ui/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import '../styles/global.scss';
+import { ThemeProvider } from '@/contexts/ThemeContext';
+import '@/styles/globals.scss';
 
 const defaultTitle = 'React App with Next.js';
 
@@ -25,18 +26,16 @@ function getDefaultLayout(page: JSX.Element, pageProps: any): JSX.Element {
 }
 
 function App({ Component, pageProps }: AppPropsWithLayout) {
-  const [queryClient] = useState(
-    () =>
-      new QueryClient({
-        defaultOptions: {
-          queries: {
-            refetchOnWindowFocus: false,
-            retry: 1,
-            staleTime: 5 * 60 * 1000
-          }
-        }
-      })
-  );
+  // 创建 React Query 客户端
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        refetchOnWindowFocus: false,
+        staleTime: 5 * 60 * 1000, // 5分钟
+        retry: 1
+      }
+    }
+  });
 
   const { title = defaultTitle } = pageProps;
   const getLayout = Component.getLayout ?? getDefaultLayout;
@@ -51,7 +50,9 @@ function App({ Component, pageProps }: AppPropsWithLayout) {
         />
       </Head>
       <QueryClientProvider client={queryClient}>
-        {React.createElement(ChakraProvider, null, getLayout(<Component {...pageProps} />, pageProps))}
+        <ChakraProvider>
+          <ThemeProvider>{getLayout(<Component {...pageProps} />, pageProps)}</ThemeProvider>
+        </ChakraProvider>
       </QueryClientProvider>
     </Fragment>
   );

@@ -15,7 +15,7 @@ type Overview = {
 };
 
 interface RiskScoreOverallProps {
-  data: Overview | null;
+  data: Overview | undefined;
 }
 // 使用 useMemo 优化趋势信息计算
 const getTrendInfo = (trend: string) => {
@@ -67,7 +67,6 @@ const RiskScoreOverall: React.FC<RiskScoreOverallProps> = ({ data }) => {
     }
   }, [data?.lastUpdated]);
 
-  // Now we can safely have conditional returns
   if (!data) return <div className={styles['loading-state']}>暂无数据</div>;
 
   const { overallRiskScore, trend, categories } = data;

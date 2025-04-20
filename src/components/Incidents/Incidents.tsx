@@ -1,66 +1,36 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import IncidentsTimeline from '@/components/Incidents/IncidentsTimeline';
-import { getIncidents, getSeverityLevel as getSeverityLevels, getESGCategories } from '@/services/riskScoreService';
-import { CategoryKey, SeverityLevel } from '@/types/publicType';
-import { Incident as ImportedIncident, Incident } from '@/types/incidents';
-import { ESGCategory } from '@/types/publicType';
+import { useIncidents, useSeverityLevel, useESGCategories } from '@/hooks/useQueries';
 import styles from './incidents.module.scss';
 
 const IncidentsPage: React.FC = () => {
-  const [incidents, setIncidents] = useState<Incident[]>([]);
-  const [severityLevels, setSeverityLevels] = useState<any[]>([]);
-  const [esgCategories, setEsgCategories] = useState<ESGCategory[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  // 使用 React Query hooks 获取数据
+  const { data: incidentsData, isLoading: incidentsLoading, error: incidentsError } = useIncidents();
 
-  useEffect(() => {
-    async function fetchData() {
-      setLoading(true);
-      setError(null);
+  const { data: severityData, isLoading: severityLoading, error: severityError } = useSeverityLevel();
 
-      try {
-        const [incidentsData, severityData, categoriesData] = await Promise.all([
-          getIncidents(),
-          getSeverityLevels(),
-          getESGCategories()
-        ]);
+  const { data: categoriesData, isLoading: categoriesLoading, error: categoriesError } = useESGCategories();
 
-        const convertedIncidents = incidentsData.incidents.map((incident: ImportedIncident) => ({
-          ...incident,
-          category: incident.category as CategoryKey,
-          severity: incident.severity as SeverityLevel
-        }));
+  // 整合加载状态和错误状态
+  const isLoading = incidentsLoading || severityLoading || categoriesLoading;
+  const error = incidentsError || severityError || categoriesError;
+  const errorMessage = error ? '无法加载数据，请稍后重试' : null;
 
-        setIncidents(convertedIncidents);
-        setSeverityLevels(severityData.severityLevels);
-        setEsgCategories(categoriesData.categories);
-      } catch (err) {
-        console.error('Error fetching data:', err);
-        setError('Failed to load event data. Please try again later.');
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    fetchData();
-  }, []);
-
-  if (loading) {
-    return <div className={styles.loading}>Loading event data...</div>;
+  if (isLoading) {
+    return <div className={styles.loading}>加载事件数据中...</div>;
   }
 
-  if (error) {
-    return <div className={styles.error}>{error}</div>;
+  if (errorMessage) {
+    return <div className={styles.error}>{errorMessage}</div>;
   }
+
+  // 提取数据
+  const incidents = incidentsData?.incidents || [];
+  const severityLevels = severityData?.severityLevels || [];
+  const esgCategories = categoriesData?.categories || [];
 
   return (
-    <div className={styles.container}>
-      <h1 className={styles.pageTitle}>ESG Event Monitoring</h1>
-      <p className={styles.pageDescription}>
-        Track environmental, social, and governance events related to the company and understand their impact on ESG
-        risk scores.
-      </p>
-
+    <div>
       <IncidentsTimeline incidents={incidents} severityLevels={severityLevels} esgCategories={esgCategories} />
     </div>
   );

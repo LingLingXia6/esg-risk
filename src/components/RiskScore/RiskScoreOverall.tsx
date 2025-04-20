@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react';
+import { capitalizeWords as capitalize } from '@/utils/formate';
 import styles from './RiskScoreOverall.module.scss';
 
 type CategoryKey = 'environmental' | 'social' | 'governance';
@@ -30,8 +31,6 @@ const categoryBgClassMap: Record<CategoryKey, string> = {
   governance: styles['category-governance']
 };
 const getCategoryBgClass = (category: string) => categoryBgClassMap[category as CategoryKey] || '';
-
-const capitalize = (str: string) => str.replace(/(^|\s)\S/g, l => l.toUpperCase());
 
 // 提取卡片组件
 const CategoryCard: React.FC<{ category: string; data: Category }> = ({ category, data }) => {

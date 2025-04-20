@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react';
 import { CategoryKey, Category } from '@/types/publicType';
 import { ESGCategoryData } from '@/types/esg';
+import { capitalize } from '@/utils/formate';
 import styles from './ESGCategoriesDetail.module.scss';
 
 interface ESGCategoriesDetailProps {
@@ -14,9 +15,6 @@ const getTrendInfo = (trend: string) => {
   if (trend === 'decreasing') return { className: styles['trend-decreasing'], icon: '▼' };
   return { className: styles['trend-stable'], icon: '—' };
 };
-
-// 首字母大写
-const capitalize = (str: string) => str.charAt(0).toUpperCase() + str.slice(1);
 
 // 子类别列表组件
 const SubcategoryList: React.FC<{ subcategories: ESGCategoryData['subcategories'] }> = ({ subcategories }) => (

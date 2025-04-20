@@ -1,6 +1,5 @@
 import React, { Fragment } from 'react';
 import Head from 'next/head';
-import Layout from '../layouts/Basic';
 import type { NextPage } from 'next';
 import { AppProps } from 'next/app';
 import { ChakraProvider } from '@chakra-ui/react';
@@ -21,10 +20,6 @@ type AppPropsWithLayout = AppProps & {
   };
 };
 
-function getDefaultLayout(page: JSX.Element, pageProps: any): JSX.Element {
-  return <Layout>{page}</Layout>;
-}
-
 function App({ Component, pageProps }: AppPropsWithLayout) {
   // 创建 React Query 客户端
   const queryClient = new QueryClient({
@@ -38,7 +33,6 @@ function App({ Component, pageProps }: AppPropsWithLayout) {
   });
 
   const { title = defaultTitle } = pageProps;
-  const getLayout = Component.getLayout ?? getDefaultLayout;
 
   return (
     <Fragment>
@@ -51,7 +45,9 @@ function App({ Component, pageProps }: AppPropsWithLayout) {
       </Head>
       <QueryClientProvider client={queryClient}>
         <ChakraProvider>
-          <ThemeProvider>{getLayout(<Component {...pageProps} />, pageProps)}</ThemeProvider>
+          <ThemeProvider>
+            <Component {...pageProps} />
+          </ThemeProvider>
         </ChakraProvider>
       </QueryClientProvider>
     </Fragment>

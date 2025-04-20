@@ -43,7 +43,6 @@ const formatDate = (dateStr: string): string => {
 };
 
 const RiskScoreHistory: React.FC<RiskScoreHistoryProps> = ({ data, interval }) => {
-  // Process data to ensure date format is correct
   const chartData = useMemo(() => {
     return data.map(item => ({
       ...item,

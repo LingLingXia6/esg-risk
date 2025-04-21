@@ -72,6 +72,7 @@ export function Timeline<T extends TimelineItem>({ items, renderItem, renderDate
       {items.map(item => (
         <Box key={item.id} position="relative" ml="120px">
           <Box position="absolute" left="-120px" top="0" width="120px" height="100%">
+            {/* Add this Box to render the date string */}
             <Box
               position="absolute"
               left="0"
@@ -81,10 +82,12 @@ export function Timeline<T extends TimelineItem>({ items, renderItem, renderDate
               fontSize="sm"
               width="80px"
               textAlign="right"
+              data-testid={`timeline-date-${item.id}`} // for easier testing
             >
               {renderDate(item.date)}
             </Box>
             <Box
+              data-testid={`timeline-dot-${item.id}`}
               position="absolute"
               left="99px"
               top="0"

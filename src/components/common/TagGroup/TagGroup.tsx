@@ -39,6 +39,15 @@
 import React from 'react';
 import { Box, Flex, Tag, Text } from '@chakra-ui/react';
 
+function hexToRgb(hex: string): string {
+  const sanitized = hex.replace('#', '');
+  const bigint = parseInt(sanitized, 16);
+  const r = (bigint >> 16) & 255;
+  const g = (bigint >> 8) & 255;
+  const b = bigint & 255;
+  return `rgb(${r}, ${g}, ${b})`; // 返回 RGB 格式
+}
+
 interface TagItem {
   id: string;
   name: string;
@@ -61,26 +70,34 @@ export const TagGroup: React.FC<TagGroupProps> = ({ items, selectedIds, onChange
         </Text>
       )}
       <Flex wrap="wrap" gap="2">
-        {items.map(item => (
-          <Tag
-            key={item.id}
-            size="md"
-            borderRadius="full"
-            variant={selectedIds.includes(item.id) ? 'solid' : 'subtle'}
-            colorScheme="gray"
-            cursor="pointer"
-            borderWidth="1px"
-            borderColor={selectedIds.includes(item.id) ? item.color : 'transparent'}
-            bg={selectedIds.includes(item.id) ? `${item.color}15` : 'gray.50'}
-            color={selectedIds.includes(item.id) ? `${item.color}` : 'gray.600'}
-            onClick={() => onChange(item.id)}
-            px={3}
-            py={2}
-          >
-            <Box as="span" w="2" h="2" borderRadius="full" bg={item.color} mr="2" />
-            {item.name}
-          </Tag>
-        ))}
+        {items.map(item => {
+          const isSelected = selectedIds.includes(item.id);
+          const backgroundColor = isSelected
+            ? `rgba(${hexToRgb(item.color)}, 0.1)` // 使用 RGBA 格式
+            : 'rgb(247, 250, 252)'; // Chakra UI 默认灰色背景
+
+          return (
+            <Tag
+              key={item.id}
+              size="md"
+              borderRadius="full"
+              variant="subtle"
+              colorScheme="gray"
+              cursor="pointer"
+              borderWidth="1px"
+              borderColor={isSelected ? item.color : 'transparent'}
+              bg={backgroundColor}
+              color={isSelected ? item.color : 'gray.600'}
+              onClick={() => onChange(item.id)}
+              px={3}
+              py={2}
+              data-testid={`tag-${item.id}`} // 添加 data-testid 确保可以选中
+            >
+              <Box as="span" w="2" h="2" borderRadius="full" bg={item.color} mr="2" />
+              {item.name}
+            </Tag>
+          );
+        })}
       </Flex>
     </Box>
   );

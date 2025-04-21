@@ -31,6 +31,7 @@ npm run build
 项目采用模块化组件架构，主要结构如下：
 
 ```
+
 src/
   components/
     Dashboard/           # 仪表盘相关组件
@@ -44,6 +45,7 @@ src/
     ThemeContext.tsx     # 主题上下文
   data/                  # 本地 mock 数据
   services/              # API 服务层
+  types/                 #组建的ts类型文件
   pages/                 # Next.js 页面入口
 ```
 
@@ -80,12 +82,12 @@ src/
 - **响应式设计**：Chakra UI 内置响应式工具，适配多终端。
 - **避免不必要的渲染**：组件拆分合理，useMemo/useCallback 优化性能敏感区域。
 - **图片与静态资源优化**：利用 Next.js 的静态资源优化能力。
-- **生产环境构建优化**：开启 SWC/webpack 压缩、Tree Shaking，减小包体积。
 
 ---
 
 ## 6. 其他说明
 
 - **测试覆盖**：使用 Jest + React Testing Library，覆盖核心组件和业务逻辑。
+- ![1745211558706](images/README/1745211558706.png)
 - **文档完善**：详见 [COMPONENTS.md](./COMPONENTS.md) 了解所有组件用法与参数。
 - **持续集成**：推荐结合 GitHub Actions/CI 工具自动化测试与部署。
